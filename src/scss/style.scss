@@ -1,0 +1,28 @@
+// Variables
+$ma-speed: 300ms;
+$ma-menu-selector: '[data-menu-animation]';
+$ma-menu-fx-class: ma-fx;
+$ma-initiated-class: ma-initiated;
+
+#{$ma-menu-selector} {
+  position: relative; // For the FX unit
+
+  li {
+    position: relative; // To be on top of the FX unit
+    z-index: 1; // To be on top of the FX unit
+  }
+}
+
+.#{$ma-menu-fx-class} {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  will-change: transform, width;
+}
+
+.#{$ma-initiated-class} {
+  .#{$ma-menu-fx-class} {
+    transition: transform $ma-speed ease-in-out, width $ma-speed ease-in-out;
+  }
+}

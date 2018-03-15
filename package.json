@@ -1,0 +1,27 @@
+{
+  "name": "Menu-animation",
+  "description": "Simple CSS animated JS powered menu animations",
+  "version": "1.0.0",
+  "homepage": "https://robinpoort.github.io/menu-animation/",
+  "author": "https://github.com/robinpoort/menu-animation/graphs/contributors",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robinpoort/menu-animation/"
+  },
+  "bugs": {
+    "url": "https://github.com/robinpoort/menu-animation/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "caniuse-db": "*",
+    "grunt": "^1.0.1",
+    "grunt-autoprefixer": "^3.0.*",
+    "grunt-browser-sync": "^2.2.*",
+    "grunt-contrib-cssmin": "^2.2.*",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "^1.0.*",
+    "grunt-sass": "^2.0.*",
+    "jit-grunt": "^0.10.*",
+    "time-grunt": "^1.3.*"
+  }
+}

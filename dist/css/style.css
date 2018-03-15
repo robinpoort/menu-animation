@@ -1,0 +1,20 @@
+[data-menu-animation] {
+  position: relative;
+}
+
+[data-menu-animation] li {
+  position: relative;
+  z-index: 1;
+}
+
+.ma-fx {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  will-change: transform, width;
+}
+
+.ma-initiated .ma-fx {
+  transition: transform 300ms ease-in-out, width 300ms ease-in-out;
+}
