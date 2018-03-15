@@ -15,7 +15,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    "dist/css/style.css": "src/scss/style.scss"
+                    "dist/css/menu-animation.css": "src/scss/menu-animation.scss"
                 }
             }
         },
@@ -78,8 +78,8 @@ module.exports = function(grunt) {
             },
             build: {
                 files: {
-                    "dist/js/scripts.js": [
-                        "src/scripts/main.js"
+                    "dist/js/menu-animation.js": [
+                        "src/js/menu-animation.js"
                     ]
                 }
             }
@@ -99,7 +99,7 @@ module.exports = function(grunt) {
                 }
             },
             javascript: {
-                files: ["src/scripts/*.js"],
+                files: ["src/js/*.js"],
                 tasks: ["uglify"],
                 options: {
                     interrupt: true,
