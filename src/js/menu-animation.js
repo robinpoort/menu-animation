@@ -160,16 +160,27 @@
         var settings;
 
         // Set style
-        var setStyle = function(item, $menuFX) {
+        var setStyle = function(item, $menuFX, $menu) {
 
-            // Get item width
-            var width = item.offsetWidth,
-                height = item.offsetHeight,
+            var width,
+                height,
                 left,
                 top;
 
+            // Get item width
+            if (item == null) {
+                width = 0;
+                height = $menu.querySelector('li').offsetHeight;
+            } else {
+                width = item.offsetWidth;
+                height = item.offsetHeight;
+            }
+
             // Get item left offset
-            if (item.matches('li')) {
+            if (item == null) {
+                left = 0;
+                top = 0;
+            } else if (item != null && item.matches('li')) {
                 left = item.offsetLeft;
                 top = item.offsetTop;
             } else {
@@ -212,7 +223,7 @@
                 $menu.appendChild($menuFX);
 
                 // Initial
-                setStyle($activeItem, $menuFX);
+                setStyle($activeItem, $menuFX, $menu);
 
                 // On hover
                 $menu.addEventListener("mouseover", function(event) {
@@ -221,9 +232,9 @@
 
                     // Set to hovering item
                     if (event.target.closest(settings.target)) {
-                        setStyle(event.target, $menuFX);
+                        setStyle(event.target, $menuFX, $menu);
                     } else {
-                        setStyle($activeItem, $menuFX);
+                        setStyle($activeItem, $menuFX, $menu);
                     }
                 });
 
@@ -235,7 +246,7 @@
                     if (e.parentNode == this || e == this) return;
 
                     // Return to active item
-                    setStyle($activeItem, $menuFX);
+                    setStyle($activeItem, $menuFX, $menu);
                 });
 
                 // apply iniated class to menu when
