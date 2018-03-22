@@ -200,7 +200,7 @@
 
 
         /**
-         * do something
+         * AnimateMenu
          */
         publicAPIs.animateMenu = function (options) {
 
@@ -215,12 +215,15 @@
 
                 // Variables
                 var $menu = menus[prop];
-                var $menuFX = document.createElement("div");
                 var $activeItem = $menu.querySelector(".is-active");
+                var $menuFX = $menu.querySelector(".js-menu-fx");
 
-                // append FX item
-                $menuFX.classList.add("js-menu-fx", localSettings.fxClassName);
-                $menu.appendChild($menuFX);
+                // append FX item if it doesn't exist yet
+                if ($menuFX === null) {
+                    $menuFX = document.createElement("div");
+                    $menuFX.classList.add("js-menu-fx", localSettings.fxClassName);
+                    $menu.appendChild($menuFX);
+                }
 
                 // Initial
                 setStyle($activeItem, $menuFX, $menu);
@@ -244,6 +247,9 @@
                     // Return false if we stay on the menu
                     var e = event.toElement || event.relatedTarget;
                     if (e.parentNode == this || e == this) return;
+
+                    // Get current active item
+                    $activeItem = $menu.querySelector(".is-active");
 
                     // Return to active item
                     setStyle($activeItem, $menuFX, $menu);
@@ -270,7 +276,7 @@
             // Merge options into defaults
             settings = extend(defaults, options || {});
 
-            //
+            // Animate menu
             publicAPIs.animateMenu(options);
 
         };
