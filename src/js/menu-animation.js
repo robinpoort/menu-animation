@@ -18,7 +18,6 @@
 
     var supports = 'querySelector' in document && 'addEventListener' in window;
 
-
     // Shared Variables
 
     var defaults = {
@@ -120,36 +119,6 @@
     };
 
 
-    // Closest
-
-    var getClosest = function ( elem, selector ) {
-
-        // Element.matches() polyfill
-        if (!Element.prototype.matches) {
-            Element.prototype.matches =
-                Element.prototype.matchesSelector ||
-                Element.prototype.mozMatchesSelector ||
-                Element.prototype.msMatchesSelector ||
-                Element.prototype.oMatchesSelector ||
-                Element.prototype.webkitMatchesSelector ||
-                function(s) {
-                    var matches = (this.document || this.ownerDocument).querySelectorAll(s),
-                        i = matches.length;
-                    while (--i >= 0 && matches.item(i) !== this) {}
-                    return i > -1;
-                };
-        }
-
-        // Get closest match
-        for ( ; elem && elem !== document; elem = elem.parentNode ) {
-            if ( elem.matches( selector ) ) return elem;
-        }
-
-        return null;
-
-    };
-
-
     // Animation
 
     var Animation = function (options) {
@@ -160,7 +129,7 @@
         var settings;
 
         // Set style
-        var setStyle = function(item, $menuFX, $menu) {
+        var setStyle = function(item, $menuFX, $menu, reset) {
 
             var width,
                 height,
@@ -196,6 +165,14 @@
                 "-webkit-transform: -webkit-translate(" + left + "px, " + top + "px);" +
                 "transform: translate(" + left + "px, " + top + "px);"
             );
+
+            // Reset
+            if (reset == true) {
+                var transitionDuration = parseFloat(getComputedStyle($menuFX)['transitionDuration']) || parseFloat(getComputedStyle($menuFX)['webkitTransitionDuration']) || parseFloat(getComputedStyle($menuFX)['mozTransitionDuration']) || 0.3;
+                setTimeout(function() {
+                    $menuFX.removeAttribute("style");
+                }, transitionDuration * 1000 + 16);
+            }
         };
 
 
@@ -225,9 +202,6 @@
                     $menu.appendChild($menuFX);
                 }
 
-                // Initial
-                setStyle($activeItem, $menuFX, $menu);
-
                 // On hover
                 $menu.addEventListener("mouseover", function(event) {
 
@@ -235,9 +209,9 @@
 
                     // Set to hovering item
                     if (event.target.closest(settings.target)) {
-                        setStyle(event.target, $menuFX, $menu);
+                        setStyle(event.target, $menuFX, $menu, false);
                     } else {
-                        setStyle($activeItem, $menuFX, $menu);
+                        setStyle($activeItem, $menuFX, $menu, false);
                     }
                 });
 
@@ -246,13 +220,14 @@
 
                     // Return false if we stay on the menu
                     var e = event.toElement || event.relatedTarget;
-                    if (e.parentNode == this || e == this) return;
+                    if (e.closest('ul')) return;
 
                     // Get current active item
                     $activeItem = $menu.querySelector(".is-active");
 
                     // Return to active item
-                    setStyle($activeItem, $menuFX, $menu);
+                    setStyle($activeItem, $menuFX, $menu, true);
+
                 });
 
                 // apply iniated class to menu when
