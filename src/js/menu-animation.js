@@ -131,7 +131,8 @@
         // Set style
         var setStyle = function(item, $menuFX, $menu, reset) {
 
-            var width,
+            var transitionDuration = parseFloat(getComputedStyle($menuFX)['transitionDuration']) || parseFloat(getComputedStyle($menuFX)['webkitTransitionDuration']) || parseFloat(getComputedStyle($menuFX)['mozTransitionDuration']) || 0.3,
+                width,
                 height,
                 left,
                 top;
@@ -171,11 +172,10 @@
 
             // Reset
             if (reset == true) {
-                var transitionDuration = parseFloat(getComputedStyle($menuFX)['transitionDuration']) || parseFloat(getComputedStyle($menuFX)['webkitTransitionDuration']) || parseFloat(getComputedStyle($menuFX)['mozTransitionDuration']) || 0.3;
                 setTimeout(function() {
-                    $menuFX.removeAttribute("style");
+                    $menuFX.style.visibility = 'hidden';
+                    $menuFX.classList.remove('is-positioned');
                 }, transitionDuration * 1000 + 16);
-                $menuFX.classList.remove('is-positioned');
             }
         };
 
@@ -213,6 +213,9 @@
                     $menu.appendChild($menuFX);
                 }
 
+                // Set menuFX to correct position
+                setStyle($activeItem, $menuFX, $menu, true);
+
                 // On hover
                 $menu.addEventListener("mouseover", function(event) {
 
@@ -231,7 +234,7 @@
 
                     // Return false if we stay on the menu
                     var e = event.toElement || event.relatedTarget;
-                    if (e !== null && e.closest('ul')) return;
+                    if (e !== null && (e.closest('ul') && e.closest('ul').querySelector('.is-positioned') !== null)) return;
 
                     // Return to active item
                     resetStyle($menuFX, $menu);
