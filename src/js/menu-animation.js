@@ -166,18 +166,23 @@
                 "transform: translate(" + left + "px, " + top + "px);"
             );
 
+            // Add class
+            $menuFX.classList.add('is-positioned');
+
             // Reset
             if (reset == true) {
                 var transitionDuration = parseFloat(getComputedStyle($menuFX)['transitionDuration']) || parseFloat(getComputedStyle($menuFX)['webkitTransitionDuration']) || parseFloat(getComputedStyle($menuFX)['mozTransitionDuration']) || 0.3;
                 setTimeout(function() {
                     $menuFX.removeAttribute("style");
                 }, transitionDuration * 1000 + 16);
+                $menuFX.classList.remove('is-positioned');
             }
         };
 
 
         // reset menu FX style
         var resetStyle = function($menuFX, $menu) {
+            if (!$menuFX.classList.contains('is-positioned')) return;
             setStyle($menu.querySelector(".is-active"), $menuFX, $menu, true);
         };
 
@@ -239,8 +244,8 @@
                 }, 32);
 
                 // When leaving window
-                window.addEventListener('blur', function(event) {
-                    resetStyle($menuFX, $menu)
+                window.addEventListener('blur', function() {
+                    resetStyle($menuFX, $menu);
                 });
 
             });
