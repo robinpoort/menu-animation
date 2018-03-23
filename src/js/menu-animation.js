@@ -176,6 +176,12 @@
         };
 
 
+        // reset menu FX style
+        var resetStyle = function($menuFX, $menu) {
+            setStyle($menu.querySelector(".is-active"), $menuFX, $menu, true);
+        };
+
+
         /**
          * AnimateMenu
          */
@@ -220,13 +226,10 @@
 
                     // Return false if we stay on the menu
                     var e = event.toElement || event.relatedTarget;
-                    if (e.closest('ul')) return;
-
-                    // Get current active item
-                    $activeItem = $menu.querySelector(".is-active");
+                    if (e !== null && e.closest('ul')) return;
 
                     // Return to active item
-                    setStyle($activeItem, $menuFX, $menu, true);
+                    resetStyle($menuFX, $menu);
 
                 });
 
@@ -234,6 +237,11 @@
                 setTimeout(function() {
                     $menu.classList.add(localSettings.initiatedClass);
                 }, 32);
+
+                // When leaving window
+                window.addEventListener('blur', function(event) {
+                    resetStyle($menuFX, $menu)
+                });
 
             });
 
