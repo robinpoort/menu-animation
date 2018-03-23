@@ -127,6 +127,7 @@
 
         var publicAPIs = {};
         var settings;
+        var clearResetTimeout;
 
         // Set style
         var setStyle = function(item, $menuFX, $menu, reset) {
@@ -172,7 +173,7 @@
 
             // Reset
             if (reset == true) {
-                setTimeout(function() {
+                clearResetTimeout = setTimeout(function() {
                     $menuFX.style.visibility = 'hidden';
                     $menuFX.classList.remove('is-positioned');
                 }, transitionDuration * 1000 + 16);
@@ -218,6 +219,8 @@
 
                 // On hover
                 $menu.addEventListener("mouseover", function(event) {
+
+                    clearTimeout(clearResetTimeout);
 
                     if (event.target.matches('ul')) return;
 
