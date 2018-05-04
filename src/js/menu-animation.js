@@ -254,6 +254,11 @@
                     resetStyle($menuFX, $menu);
                 });
 
+                // On window resize
+                window.addEventListener('resize', function() {
+                    resetStyle($menuFX, $menu);
+                });
+
             });
 
         };

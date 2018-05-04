@@ -6,139 +6,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu animation</title>
     <link rel="stylesheet" href="dist/css/menu-animation.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 40px;
-            background: #eee;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            line-height: 24px;
-            color: #222;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 40px;
+        background: #eee;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        line-height: 24px;
+        color: #222;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
+    ul {
+        margin: 0 0 1em;
+        padding: 0;
+        list-style: none;
+    }
+
+    @media screen and (min-width: 600px) {
         ul {
-            margin: 0 0 1em;
-            padding: 0;
-            list-style: none;
             display: flex;
         }
 
         li + li {
             margin-left: 16px;
         }
+    }
 
-        a {
-            display: block;
-            position: relative;
-            text-decoration: none;
-            color: inherit;
-            line-height: 40px;
-            padding: 4px 8px;
-        }
+    a {
+        display: block;
+        position: relative;
+        text-decoration: none;
+        color: inherit;
+        line-height: 40px;
+        padding: 4px 8px;
+    }
 
-        a:after {
-            position: absolute;
-            content: " ";
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: none;
-            z-index: -1;
-        }
+    a:after {
+        position: absolute;
+        content: " ";
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: none;
+        z-index: -1;
+    }
 
-        .is-active a:after {
-            display: block;
-        }
+    .is-active a:after {
+        display: block;
+    }
 
-        .ma-fx:after {
-            position: absolute;
-            content: " ";
-            left: 0;
-            width: 100%;
-        }
+    .ma-fx:after {
+        position: absolute;
+        content: " ";
+        left: 0;
+        width: 100%;
+    }
 
-        nav {
-            width: 100%;
-            max-width: 600px;
-        }
+    nav {
+        width: 100%;
+        max-width: 600px;
+    }
 
-        .menu1 a:after {
-            height: 2px;
-            background: #0188d6;
-        }
+    .menu1 a:after {
+        height: 2px;
+        background: #0188d6;
+    }
 
-        .menu1 .ma-fx:after {
-            bottom: 0;
-            height: 2px;
-            background: #0188d6;
-            opacity: 0.5;
-        }
+    .menu1 .ma-fx:after {
+        bottom: 0;
+        height: 2px;
+        background: #0188d6;
+        opacity: 0.5;
+    }
 
-        .menu2 {
-            background: white;
-        }
+    .menu2 {
+        background: white;
+    }
 
-        .menu2 a:after {
-            height: 100%;
-            background: #ddd;
-        }
+    .menu2 a:after {
+        height: 100%;
+        background: #ddd;
+    }
 
-        .menu2 .ma-fx:after {
-            top: 0;
-            height: 100%;
-            background: #ddd;
-            opacity: 0.5;
-        }
+    .menu2 .ma-fx:after {
+        top: 0;
+        height: 100%;
+        background: #ddd;
+        opacity: 0.5;
+    }
 
-        .menu3 .is-active {
-            color: white;
-        }
+    .menu3 .is-active {
+        color: white;
+    }
 
-        .menu3 a:after {
-            height: 100%;
-            background: #0188d6;
-            border-radius: 4px;
-        }
+    .menu3 a:after {
+        height: 100%;
+        background: #0188d6;
+        border-radius: 4px;
+    }
 
-        .menu3 .ma-fx:after {
-            top: 0;
-            height: 100%;
-            background: #0188d6;
-            border-radius: 4px;
-            opacity: 0.25;
-        }
+    .menu3 .ma-fx:after {
+        top: 0;
+        height: 100%;
+        background: #0188d6;
+        border-radius: 4px;
+        opacity: 0.25;
+    }
 
-        .menu4 {
-            display: block;
-        }
+    .menu4 {
+        display: block;
+    }
 
-        .menu4 li {
-            margin: 0;
-        }
+    .menu4 li {
+        margin: 0;
+    }
 
-        .menu4 .is-active {
-            color: white;
-        }
+    .menu4 .is-active {
+        color: white;
+    }
 
-        .menu4 a:after {
-            height: 100%;
-            background: #0188d6;
-            border-radius: 4px;
-        }
+    .menu4 a:after {
+        height: 100%;
+        background: #0188d6;
+        border-radius: 4px;
+    }
 
-        .menu4 .ma-fx:after {
-            top: 0;
-            height: 100%;
-            background: #0188d6;
-            border-radius: 4px;
-            opacity: 0.25;
-        }
-    </style>
-</head>
+    .menu4 .ma-fx:after {
+        top: 0;
+        height: 100%;
+        background: #0188d6;
+        border-radius: 4px;
+        opacity: 0.25;
+    }
+</style>
 <body>
 
 <nav>
