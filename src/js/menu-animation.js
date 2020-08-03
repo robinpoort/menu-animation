@@ -24,7 +24,10 @@
         menu: '[data-menu-animation]',
         target: 'a',
         fxClassName: 'ma-fx',
-        initiatedClass: 'ma-initiated'
+        initiatedClass: 'ma-initiated',
+        activeItem: '.is-active',
+        isPositionedClass: 'is-positioned',
+        fxClass: 'js-menu-fx'
     };
 
 
@@ -65,7 +68,7 @@
     // Foreach
 
     var forEach = function(collection, callback, scope) {
-        if (Object.prototype.toString.call(collection) === "[object Object]") {
+        if (Object.prototype.toString.call(collection) === '[object Object]') {
             for (var prop in collection) {
                 if (Object.prototype.hasOwnProperty.call(collection, prop)) {
                     callback.call(scope, collection[prop], prop, collection);
@@ -119,9 +122,11 @@
     };
 
 
-    // Animation
+    //
+    // Return the constructor
+    //
 
-    var Animation = function (options) {
+    return function (options) {
 
         // Unique Variables
 
@@ -151,7 +156,7 @@
             if (item == null) {
                 left = 0;
                 top = 0;
-            } else if (item != null && item.matches('li')) {
+            } else if (item.matches('li')) {
                 left = item.offsetLeft;
                 top = item.offsetTop;
             } else {
@@ -161,21 +166,21 @@
 
             // Animate
             $menuFX.setAttribute(
-                "style",
-                "width: " + width + "px;" +
-                "height: " + height + "px;" +
-                "-webkit-transform: -webkit-translate(" + left + "px, " + top + "px);" +
-                "transform: translate(" + left + "px, " + top + "px);"
+                'style',
+                'width: ' + width + 'px;' +
+                'height: ' + height + 'px;' +
+                '-webkit-transform: -webkit-translate(' + left + 'px, ' + top + 'px);' +
+                'transform: translate(' + left + 'px, ' + top + 'px);'
             );
 
             // Add class
-            $menuFX.classList.add('is-positioned');
+            $menuFX.classList.add(settings.isPositionedClass);
 
             // Reset
-            if (reset == true) {
+            if (reset === true) {
                 clearResetTimeout = setTimeout(function() {
                     $menuFX.style.visibility = 'hidden';
-                    $menuFX.classList.remove('is-positioned');
+                    $menuFX.classList.remove(settings.isPositionedClass);
                 }, transitionDuration * 1000 + 16);
             }
         };
@@ -183,8 +188,8 @@
 
         // reset menu FX style
         var resetStyle = function($menuFX, $menu) {
-            if (!$menuFX.classList.contains('is-positioned')) return;
-            setStyle($menu.querySelector(".is-active"), $menuFX, $menu, true);
+            if (!$menuFX.classList.contains(settings.isPositionedClass)) return;
+            setStyle($menu.querySelector(settings.activeItem), $menuFX, $menu, true);
         };
 
 
@@ -204,13 +209,13 @@
 
                 // Variables
                 var $menu = menus[prop];
-                var $activeItem = $menu.querySelector(".is-active");
-                var $menuFX = $menu.querySelector(".js-menu-fx");
+                var $activeItem = $menu.querySelector(settings.activeItem);
+                var $menuFX = $menu.querySelector("."+settings.fxClass);
 
                 // append FX item if it doesn't exist yet
                 if ($menuFX === null) {
-                    $menuFX = document.createElement("div");
-                    $menuFX.classList.add("js-menu-fx", localSettings.fxClassName);
+                    $menuFX = document.createElement('div');
+                    $menuFX.classList.add(settings.fxClass, localSettings.fxClassName);
                     $menu.appendChild($menuFX);
                 }
 
@@ -218,7 +223,7 @@
                 setStyle($activeItem, $menuFX, $menu, true);
 
                 // On hover
-                $menu.addEventListener("mouseover", function(event) {
+                $menu.addEventListener('mouseover', function(event) {
 
                     clearTimeout(clearResetTimeout);
 
@@ -233,11 +238,11 @@
                 });
 
                 // Set to active item when leaving ul
-                $menu.addEventListener("mouseout", function(event) {
+                $menu.addEventListener('mouseout', function(event) {
 
                     // Return false if we stay on the menu
                     var e = event.toElement || event.relatedTarget;
-                    if (e !== null && (e.closest('ul') && e.closest('ul').querySelector('.is-positioned') !== null)) return;
+                    if (e !== null && (e.closest('ul') && e.closest('ul').querySelector('.'+settings.isPositionedClass) !== null)) return;
 
                     // Return to active item
                     resetStyle($menuFX, $menu);
@@ -287,12 +292,5 @@
         return publicAPIs;
 
     };
-
-
-    //
-    // Return the constructor
-    //
-
-    return Animation;
 
 });
