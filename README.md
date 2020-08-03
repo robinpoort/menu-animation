@@ -21,3 +21,16 @@ Simple CSS animated JS powered menu animations
     var menu = new menuAnimation();
 </script>
 ```
+
+## Styling
+
+There's no styling coming with this project. All styling needs to be done per site. As an example you can check the demo styling.
+
+### No-js Styling
+
+Make sure you have styling for hover/focus when the JS fails to run.
+
+```css
+[data-menu-animation]:not(.ma-initiated) a:focus:after,
+[data-menu-animation]:not(.ma-initiated) a:hover:after { ... }
+```

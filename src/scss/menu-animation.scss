@@ -1,8 +1,10 @@
 // Variables
-$ma-speed: 300ms;
-$ma-menu-selector: '[data-menu-animation]';
-$ma-menu-fx-class: ma-fx;
-$ma-initiated-class: ma-initiated;
+$ma-speed: 300ms !default;
+$ma-menu-selector: '[data-menu-animation]' !default;
+$ma-menu-fx-class: ma-fx !default;
+$ma-initiated-class: ma-initiated !default;
+$ma-fx-will-change: transform, width !default;
+$ma-fx-transition: transform $ma-speed ease-in-out, width $ma-speed ease-in-out !default;
 
 #{$ma-menu-selector} {
   position: relative; // For the FX unit
@@ -18,11 +20,11 @@ $ma-initiated-class: ma-initiated;
   top: 0;
   left: 0;
   z-index: 0;
-  will-change: transform, width;
+  will-change: $ma-fx-will-change;
 }
 
 .#{$ma-initiated-class} {
   .#{$ma-menu-fx-class} {
-    transition: transform $ma-speed ease-in-out, width $ma-speed ease-in-out;
+    transition: $ma-fx-transition;
   }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "Menu-animation",
+  "name": "menu-animation",
   "description": "Simple CSS animated JS powered menu animations",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "homepage": "https://robinpoort.github.io/menu-animation/",
   "author": "https://github.com/robinpoort/menu-animation/graphs/contributors",
   "repository": {
